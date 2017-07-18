@@ -6,13 +6,28 @@ class Button{
     this.text = text;
     this.icon = icon;
   }
+
   render(){
-    this.element.innerHTML = `${this.text}${this.icon}`;
+    this.element.innerHTML = `${this.text}<span class="glyphicon glyphicon-${this.icon}"></span>`;
+  }
+
+  set newText(newText){
+    this.text = newText;
+    this.render();
   }
 }
 
-const element= document.querySelector(".hello-button");
-const icon= '<span class="glyphicon glyphicon-heart"></span>';
-const text= "Hola";
-const myButton = new Button(element, text, icon);
-myButton.render();
+class ButtonUpgrade extends Button{
+  constructor(element, text, icon){
+    super(element, text, icon);
+    this.changeRed();
+  }
+
+  changeRed(){
+    this.element.style.color = "red";
+  }
+}
+
+const myButton = new Button(`.hello-button`, `Click me`, `user`);
+const redButton = new ButtonUpgrade(`.hello-button`, `Click me`, `stats`);
+redButton.newText= "Nuevo texto";
